@@ -5,5 +5,5 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  return <h1>Tanstack Faster</h1>;
+  return <h1 class="text-3xl font-bold">Tanstack Faster</h1>;
 }

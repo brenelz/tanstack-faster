@@ -18,10 +18,11 @@
     "vinxi": "^0.5.3"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.0.17",
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^4",
     "typescript": "^5.8.2",
     "vite-plugin-solid": "^2.11.6",
-    "vite-tsconfig-paths": "^5.1.4",
-    "tailwindcss": "^3.4.17",
-    "autoprefixer": "^10.4.20"
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
