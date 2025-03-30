@@ -2,10 +2,7 @@ import { categories } from "@/lib/data";
 import { createServerFn } from "@tanstack/solid-start";
 
 export const getCategories = createServerFn().handler(async () => {
-  return categories.map((category) => ({
-    title: category.title,
-    href: category.href,
-  }));
+  return categories;
 });
 
 export const getProduct = createServerFn()
