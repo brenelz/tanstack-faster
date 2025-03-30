@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
+import { Link } from "@tanstack/solid-router";
 
 // This would typically come from your database or API
 const categories = [
@@ -40,10 +41,11 @@ function CategoryPage() {
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <For each={data().products}>
               {(product) => (
-                <a
-                  href={`/products/${product.title
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
+                <Link
+                  to="/products/$product"
+                  params={{
+                    product: product.title.toLowerCase().replace(/\s+/g, "-"),
+                  }}
                   class="flex w-[125px] flex-col items-center text-center"
                 >
                   <img
@@ -56,8 +58,8 @@ function CategoryPage() {
                     src={product.image}
                   />
                   <span class="text-xs">{product.title}</span>
-                  <span class="text-xs text-accent1">{product.price}</span>
-                </a>
+                  <span class="text-xs text-[#FF6B00]">{product.price}</span>
+                </Link>
               )}
             </For>
           </div>

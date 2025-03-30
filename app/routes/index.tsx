@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
-import { For } from "solid-js";
+import { createSignal, For } from "solid-js";
+import { Link } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -89,6 +90,8 @@ const categories = [
 ];
 
 function Home() {
+  const [count, setCount] = createSignal(0);
+
   return (
     <div class="w-full space-y-12">
       <For each={categories}>
@@ -100,10 +103,11 @@ function Home() {
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
               <For each={category.products}>
                 {(product) => (
-                  <a
-                    href={`/products/${product.title
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}`}
+                  <Link
+                    to="/products/$product"
+                    params={{
+                      product: product.title.toLowerCase().replace(/\s+/g, "-"),
+                    }}
                     class="flex w-[125px] flex-col items-center text-center"
                   >
                     <img
@@ -116,14 +120,15 @@ function Home() {
                       src={product.image}
                     />
                     <span class="text-xs">{product.title}</span>
-                    <span class="text-xs text-accent1">{product.price}</span>
-                  </a>
+                    <span class="text-xs text-[#FF6B00]">{product.price}</span>
+                  </Link>
                 )}
               </For>
             </div>
           </div>
         )}
       </For>
+      <button onClick={() => setCount(count() + 1)}>{count()}</button>
     </div>
   );
 }

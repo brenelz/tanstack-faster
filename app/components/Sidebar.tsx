@@ -1,4 +1,5 @@
 import { For } from "solid-js";
+import { Link } from "@tanstack/solid-router";
 
 const categories = [
   {
@@ -33,12 +34,12 @@ export function Sidebar() {
         <For each={categories}>
           {(category) => (
             <li class="w-full">
-              <a
+              <Link
                 class="block w-full py-1 text-xs text-gray-800 hover:bg-accent2 hover:underline"
-                href={category.href}
+                to={category.href}
               >
                 {category.title}
-              </a>
+              </Link>
             </li>
           )}
         </For>

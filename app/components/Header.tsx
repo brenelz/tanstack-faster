@@ -1,11 +1,13 @@
+import { Link } from "@tanstack/solid-router";
+
 export default function Header() {
   return (
-    <header class="fixed top-0 z-10 flex h-[90px] w-[100vw] flex-grow items-center justify-between border-b-2 border-accent2 bg-background p-2 pb-[4px] pt-2 sm:h-[70px] sm:flex-row sm:gap-4 sm:p-4 sm:pb-[4px] sm:pt-0">
+    <header class="fixed top-0 z-10 flex h-[90px] w-[100vw] flex-grow items-center justify-between border-b-2 border-[#FFA366] bg-background p-2 pb-[4px] pt-2 sm:h-[70px] sm:flex-row sm:gap-4 sm:p-4 sm:pb-[4px] sm:pt-0">
       <div class="flex flex-grow flex-col">
         <div class="flex w-full flex-col items-start justify-center sm:w-auto sm:flex-row sm:items-center sm:gap-2">
-          <a class="text-4xl font-bold text-[#FF6B00]" href="/">
+          <Link class="text-4xl font-bold text-[#FF6B00]" to="/">
             TanstackFaster
-          </a>
+          </Link>
           <div class="items flex w-full flex-row items-center justify-between gap-4">
             <div class="mx-0 flex-grow sm:mx-auto sm:flex-grow-0">
               <div class="font-sans">
@@ -40,20 +42,23 @@ export default function Header() {
             </div>
             <div class="flex flex-row justify-between space-x-4">
               <div class="relative">
-                <a class="text-lg text-[#FF6B00] hover:underline" href="/order">
+                <Link
+                  class="text-lg text-[#FF6B00] hover:underline"
+                  to="/order"
+                >
                   ORDER
-                </a>
+                </Link>
               </div>
-              <a
+              <Link
                 class="hidden text-lg text-[#FF6B00] hover:underline md:block"
-                href="/order-history"
+                to="/order-history"
               >
                 ORDER HISTORY
-              </a>
-              <a
+              </Link>
+              <Link
                 aria-label="Order History"
                 class="block text-lg text-[#FF6B00] hover:underline md:hidden"
-                href="/order-history"
+                to="/order-history"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +76,7 @@ export default function Header() {
                   <line x1="4" x2="20" y1="6" y2="6" />
                   <line x1="4" x2="20" y1="18" y2="18" />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
