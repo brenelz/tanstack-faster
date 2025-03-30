@@ -3,7 +3,7 @@ export default function Header() {
     <header class="fixed top-0 z-10 flex h-[90px] w-[100vw] flex-grow items-center justify-between border-b-2 border-accent2 bg-background p-2 pb-[4px] pt-2 sm:h-[70px] sm:flex-row sm:gap-4 sm:p-4 sm:pb-[4px] sm:pt-0">
       <div class="flex flex-grow flex-col">
         <div class="flex w-full flex-col items-start justify-center sm:w-auto sm:flex-row sm:items-center sm:gap-2">
-          <a class="text-4xl font-bold text-accent1" href="/">
+          <a class="text-4xl font-bold text-[#FF6B00]" href="/">
             TanstackFaster
           </a>
           <div class="items flex w-full flex-row items-center justify-between gap-4">
@@ -40,19 +40,19 @@ export default function Header() {
             </div>
             <div class="flex flex-row justify-between space-x-4">
               <div class="relative">
-                <a class="text-lg text-accent1 hover:underline" href="/order">
+                <a class="text-lg text-[#FF6B00] hover:underline" href="/order">
                   ORDER
                 </a>
               </div>
               <a
-                class="hidden text-lg text-accent1 hover:underline md:block"
+                class="hidden text-lg text-[#FF6B00] hover:underline md:block"
                 href="/order-history"
               >
                 ORDER HISTORY
               </a>
               <a
                 aria-label="Order History"
-                class="block text-lg text-accent1 hover:underline md:hidden"
+                class="block text-lg text-[#FF6B00] hover:underline md:hidden"
                 href="/order-history"
               >
                 <svg
