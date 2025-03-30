@@ -1,45 +1,28 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
-
-// This would typically come from your database or API
-const categories = [
-  {
-    title: "Art Books and Educational Materials",
-    href: "/categories/art-books-and-educational-materials",
-    products: [
-      {
-        title: "Drawing Fundamentals",
-        price: "$29.99",
-        image: "/images/products/drawing-fundamentals.jpg",
-      },
-      {
-        title: "Watercolor Techniques",
-        price: "$34.99",
-        image: "/images/products/watercolor-techniques.jpg",
-      },
-    ],
-  },
-  // ... other categories
-];
+import { getCategory } from "@/lib/server";
 
 export const Route = createFileRoute("/categories/$category")({
   component: CategoryPage,
+  loader: async ({ params }) => {
+    return {
+      category: await getCategory({ data: { category: params.category } }),
+    };
+  },
+  // staleTime: 1000 * 60 * 5, // 5 minutes
 });
 
 function CategoryPage() {
-  const params = Route.useParams();
-  const categoryData = categories.find(
-    (c) => c.href === `/categories/${params().category}`
-  );
+  const data = Route.useLoaderData();
 
   return (
-    <Show when={categoryData} fallback={<div>Category not found</div>}>
-      {(data) => (
+    <Show when={data().category} fallback={<div>Category not found</div>}>
+      {(category) => (
         <div class="w-full space-y-8">
-          <h1 class="text-2xl font-bold text-[#FF6B00]">{data().title}</h1>
+          <h1 class="text-2xl font-bold text-[#FF6B00]">{category().title}</h1>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            <For each={data().products}>
+            <For each={category().products}>
               {(product) => (
                 <Link
                   to="/products/$product"
