@@ -39,6 +39,7 @@ function RootComponent() {
       <div class="pt-[85px] sm:pt-[70px]">
         <div class="flex flex-grow font-mono">
           <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
+            {/* Why is this typed ReadableStream<any></any> */}
             <Sidebar categories={data().categories} />
           </aside>
           <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
