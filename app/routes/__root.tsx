@@ -4,6 +4,7 @@ import appCss from "@/styles/app.css?url";
 import Header from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { getCategories } from "@/lib/server";
+import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -49,6 +50,7 @@ function RootComponent() {
           </main>
         </div>
       </div>
+      <TanStackRouterDevtools />
     </div>
   );
 }

@@ -31,6 +31,9 @@ devDependencies:
   '@tailwindcss/vite':
     specifier: ^4.0.17
     version: 4.0.17(vite@6.2.3)
+  '@tanstack/solid-router-devtools':
+    specifier: ^1.114.31
+    version: 1.114.31(@tanstack/router-core@1.114.29)(@tanstack/solid-router@1.114.29)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3)
   tailwindcss:
     specifier: ^4
     version: 4.0.17
@@ -1403,7 +1406,6 @@ packages:
 
   /@nothing-but/utils@0.17.0:
     resolution: {integrity: sha512-TuCHcHLOqDL0SnaAxACfuRHBNRgNJcNn9X0GiH5H3YSDBVquCr3qEIG3FOQAuMyZCbu9w8nk2CHhOsn7IvhIwQ==}
-    dev: false
 
   /@parcel/watcher-android-arm64@2.5.1:
     resolution: {integrity: sha512-KF8+j9nNbUN8vzOFDpRMsaKBHZ/mcjEjMToVMJOhTozkDonQFFrRcfdLWn6yWKCmJKmdVxSgHiYvTCef4/qcBA==}
@@ -1501,6 +1503,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.8
+      napi-wasm: 1.1.3
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -1511,6 +1514,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.8
+      napi-wasm: 1.1.3
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -1885,7 +1889,6 @@ packages:
       '@solid-primitives/static-store': 0.0.8(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-devtools/logger@0.9.7(solid-js@1.9.5):
     resolution: {integrity: sha512-JHZ0ejkQnRoMcV8bgqogSYFlYdo0wJ1S/vAHEROSHQk1jNtErTXJwLrCXdR+LNuBWhJJ0aq/y7Pjit/ssvKrDw==}
@@ -1897,7 +1900,6 @@ packages:
       '@solid-devtools/shared': 0.19.0(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-devtools/shared@0.19.0(solid-js@1.9.5):
     resolution: {integrity: sha512-OGo6l84f9X5YEAqSEM4Xl94+xKXSqmACMzKWsAqO0BStLBMVL0vIVu286AQk5XkNxn11/EB9wrdkZc9GUzKlxA==}
@@ -1914,7 +1916,6 @@ packages:
       '@solid-primitives/styles': 0.0.114(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/bounds@0.0.122(solid-js@1.9.5):
     resolution: {integrity: sha512-kUq/IprOdFr/rg2upon5lQGOoTnDAmxQS4ASKK2l+VwoKSctdPwgu/4qJxEITZikL+nB0myYZzBZWptySV0cRg==}
@@ -1926,7 +1927,6 @@ packages:
       '@solid-primitives/static-store': 0.0.8(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/cursor@0.0.115(solid-js@1.9.5):
     resolution: {integrity: sha512-8nEmUN/sacXPChwuJOAi6Yi6VnxthW/Jk8VGvvcF38AenjUvOA6FHI6AkJILuFXjQw1PGxia1YbH/Mn77dPiOA==}
@@ -1935,7 +1935,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/event-listener@2.4.0(solid-js@1.9.5):
     resolution: {integrity: sha512-TSfR1PNTfojFEYGSxSMCnUhXsaYWBo4p+cm73QmWODa9YnaQAk6PB7VjzG2bOT2D817VlvuOqTj0Qdq+MZrdGg==}
@@ -1944,7 +1943,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/keyboard@1.3.0(solid-js@1.9.5):
     resolution: {integrity: sha512-0QX9O3eUaQorNNmXZn8a4efSByayIScVq+iGSwheD7m3SL/ACLM5oZlCNpTPLcemnVVfUPAHFiViEj86XpN5qw==}
@@ -1955,7 +1953,6 @@ packages:
       '@solid-primitives/rootless': 1.5.0(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/media@2.3.0(solid-js@1.9.5):
     resolution: {integrity: sha512-7+C3wfbWnGE/WPoNsqcp/EeOP2aNNB92RCpsWhBth8E5lZo/J+rK6jMb7umVsK0zguT8HBpeXp1pFyFbcsHStA==}
@@ -1967,7 +1964,6 @@ packages:
       '@solid-primitives/static-store': 0.1.0(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/platform@0.1.2(solid-js@1.9.5):
     resolution: {integrity: sha512-sSxcZfuUrtxcwV0vdjmGnZQcflACzMfLriVeIIWXKp8hzaS3Or3tO6EFQkTd3L8T5dTq+kTtLvPscXIpL0Wzdg==}
@@ -1975,7 +1971,6 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/refs@1.1.0(solid-js@1.9.5):
     resolution: {integrity: sha512-QJ3bTSQOlPdHBP2m6llrT13FvVzAwZfx41lTN8lQrRwwcZoWb7kfCAjhaohPnwkAsQ6nJpLjtGfT5GOyuCA4tA==}
@@ -1984,7 +1979,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/resize-observer@2.1.0(solid-js@1.9.5):
     resolution: {integrity: sha512-tO9MDAc2pNjpcRd5B8LWbiR1qzIgvGZ5BtTuO98N7CLwd+fnuyGwtlQtJpz5hcLcTnoawpQYLpiRGNgaYW+YzQ==}
@@ -1996,7 +1990,6 @@ packages:
       '@solid-primitives/static-store': 0.1.0(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/rootless@1.5.0(solid-js@1.9.5):
     resolution: {integrity: sha512-YJ+EveQeDv9DLqfDKfsPAAGy2x3vBruoD23yn+nD2dT84QjoBxWT1T0qA0TMFjek6/xuN3flqnHtQ4r++4zdjg==}
@@ -2005,7 +1998,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/scheduled@1.5.0(solid-js@1.9.5):
     resolution: {integrity: sha512-RVw24IRNh1FQ4DCMb3OahB70tXIwc5vH8nhR4nNPsXwUPQeuOkLsDI5BlxaPk0vyZgqw9lDpufgI3HnPwplgDw==}
@@ -2013,7 +2005,6 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/static-store@0.0.8(solid-js@1.9.5):
     resolution: {integrity: sha512-ZecE4BqY0oBk0YG00nzaAWO5Mjcny8Fc06CdbXadH9T9lzq/9GefqcSe/5AtdXqjvY/DtJ5C6CkcjPZO0o/eqg==}
@@ -2022,7 +2013,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/static-store@0.1.0(solid-js@1.9.5):
     resolution: {integrity: sha512-6Coau0Kv/dF83UQpbBzc+gnJafOQAPe2jCbB4jmTK5UocsR5cWmFBVRm3kin+nZFVaO4WkuELw0cKANWgTVh8Q==}
@@ -2031,7 +2021,6 @@ packages:
     dependencies:
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/styles@0.0.114(solid-js@1.9.5):
     resolution: {integrity: sha512-SFXr16mgr6LvZAIj6L7i59HHg+prAmIF8VP/U3C6jSHz68Eh1G71vaWr9vlJVpy/j6bh1N8QUzu5CgtvIC92OQ==}
@@ -2041,7 +2030,6 @@ packages:
       '@solid-primitives/rootless': 1.5.0(solid-js@1.9.5)
       '@solid-primitives/utils': 6.3.0(solid-js@1.9.5)
       solid-js: 1.9.5
-    dev: false
 
   /@solid-primitives/utils@6.3.0(solid-js@1.9.5):
     resolution: {integrity: sha512-e7hTlJ1Ywh2+g/Qug+n4L1mpfxsikoIS4/sHE2EK9WatQt8UJqop/vE6bsLnXlU1xuhb/jo94Ah5Y27rd4wP7A==}
@@ -2049,7 +2037,6 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       solid-js: 1.9.5
-    dev: false
 
   /@solidjs/meta@0.29.4(solid-js@1.9.5):
     resolution: {integrity: sha512-zdIWBGpR9zGx1p1bzIPqF5Gs+Ks/BH8R6fWhmUa/dcK1L2rUC8BAcZJzNRYBQv74kScf1TSOs0EY//Vd/I0V8g==}
@@ -2057,7 +2044,6 @@ packages:
       solid-js: '>=1.8.4'
     dependencies:
       solid-js: 1.9.5
-    dev: false
 
   /@speed-highlight/core@1.2.7:
     resolution: {integrity: sha512-0dxmVj4gxg3Jg879kvFS/msl4s9F3T9UXC1InxgOf7t5NvcPD97u/WTA5vL/IxWHMn7qSxBozqrnnE2wvl1m8g==}
@@ -2234,7 +2220,6 @@ packages:
   /@tanstack/history@1.114.29:
     resolution: {integrity: sha512-OTRMhwidScQSA0xsc5OCtm3K/oAChe47jy1e4OY3VpXUnKrI7C8iwfQ9XDRdpdsRASH2xi6P5I0+7ksFBehaQQ==}
     engines: {node: '>=12'}
-    dev: false
 
   /@tanstack/router-core@1.114.29:
     resolution: {integrity: sha512-CLf7HhHNiTz3cW1uB+DGyxiVwkEY+2YO36MXjtTLLtt5tQozDe3Kp7Dtb6B7aacMpvnLLwWtfmgptOce4Y8TQQ==}
@@ -2243,7 +2228,26 @@ packages:
       '@tanstack/history': 1.114.29
       '@tanstack/store': 0.7.0
       tiny-invariant: 1.3.3
-    dev: false
+
+  /@tanstack/router-devtools-core@1.114.31(@tanstack/router-core@1.114.29)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3):
+    resolution: {integrity: sha512-/Tne2a2xQXIt351eyHD2QaBwxe0c6WTzo9Nz5RcIVpgj7kbN6B6jv9NwZ3ozSUyDLL6o34XPbTaQB94FnYQgXQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@tanstack/router-core': ^1.114.29
+      csstype: ^3.0.10
+      solid-js: '>=1.9.5'
+      tiny-invariant: ^1.3.3
+    peerDependenciesMeta:
+      csstype:
+        optional: true
+    dependencies:
+      '@tanstack/router-core': 1.114.29
+      clsx: 2.1.1
+      csstype: 3.1.3
+      goober: 2.1.16(csstype@3.1.3)
+      solid-js: 1.9.5
+      tiny-invariant: 1.3.3
+    dev: true
 
   /@tanstack/router-generator@1.114.29:
     resolution: {integrity: sha512-YGAKnVrv775GCmU5tUIStpVewibK+Q5nLSWbA+xV2J4M7nA/ozjN1GeVp0+Wo+5T0tkU5cyHjlCPRP+M/aikWQ==}
@@ -2345,6 +2349,22 @@ packages:
       - yaml
     dev: false
 
+  /@tanstack/solid-router-devtools@1.114.31(@tanstack/router-core@1.114.29)(@tanstack/solid-router@1.114.29)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3):
+    resolution: {integrity: sha512-UZw5zvOhNFoqihqdOtYvsasMAOwh5Pc6uAF0qY/jmcFhqI/bsSoFQyDXCi41VsgcB0k3KmnYBnTmVSk8CygT3g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@tanstack/solid-router': ^1.114.29
+      solid-js: ^1.9.5
+    dependencies:
+      '@tanstack/router-devtools-core': 1.114.31(@tanstack/router-core@1.114.29)(csstype@3.1.3)(solid-js@1.9.5)(tiny-invariant@1.3.3)
+      '@tanstack/solid-router': 1.114.29(solid-js@1.9.5)
+      solid-js: 1.9.5
+    transitivePeerDependencies:
+      - '@tanstack/router-core'
+      - csstype
+      - tiny-invariant
+    dev: true
+
   /@tanstack/solid-router@1.114.29(solid-js@1.9.5):
     resolution: {integrity: sha512-Je1BoAIDyBkTEFttIyUFMvMWDaS4NfZj6CthAp3NwtAN1TQi8vSVZaaWaaE7QJZzUuOIhuxdkl/oXCXNW3AQsw==}
     engines: {node: '>=12'}
@@ -2361,7 +2381,6 @@ packages:
       solid-js: 1.9.5
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
-    dev: false
 
   /@tanstack/solid-start-client@1.114.29(drizzle-orm@0.41.0)(solid-js@1.9.5):
     resolution: {integrity: sha512-POeax5aBuLZFQiJzyABSJ+feCJS6gU6CGPn3X6P6rcJyQQWUgyhZ914LQVmYONbh3fGk0C6LWBiT/I1/Vg6dYQ==}
@@ -2663,7 +2682,6 @@ packages:
     dependencies:
       '@tanstack/store': 0.7.0
       solid-js: 1.9.5
-    dev: false
 
   /@tanstack/start-api-routes@1.114.29(drizzle-orm@0.41.0):
     resolution: {integrity: sha512-285uopaeunwMORxO5JGEsPOFad/LcewDbWlKhu8SsTOugPjMz9YWLcTooCJrnG57lOIBnq/G2zQNd/4aDrjE0A==}
@@ -2828,7 +2846,6 @@ packages:
 
   /@tanstack/store@0.7.0:
     resolution: {integrity: sha512-CNIhdoUsmD2NolYuaIs8VfWM467RK6oIBAW4nPEKZhg1smZ+/CwtCdpURgp7nxSqOaV9oKkzdWD80+bC66F/Jg==}
-    dev: false
 
   /@tanstack/virtual-file-routes@1.114.29:
     resolution: {integrity: sha512-DufKsQy/qxDpOTiggJCgshhJkpSyUygwHHfl2LA66CXOf3aUjZtlNu4io1UpmJNf8C/9lVlGARhkoq5fTRRk0w==}
@@ -3248,6 +3265,11 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
     dev: false
+
+  /clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
+    dev: true
 
   /cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
@@ -4041,6 +4063,14 @@ packages:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
     dev: true
 
+  /goober@2.1.16(csstype@3.1.3):
+    resolution: {integrity: sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dependencies:
+      csstype: 3.1.3
+    dev: true
+
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -4627,6 +4657,10 @@ packages:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /napi-wasm@1.1.3:
+    resolution: {integrity: sha512-h/4nMGsHjZDCYmQVNODIrYACVJ+I9KItbG+0si6W/jSjdA9JbWDoU4LLeMXVcEQGHjttI2tuXqDrbGF7qkUHHg==}
+    dev: false
 
   /nitropack@2.11.8(drizzle-orm@0.41.0):
     resolution: {integrity: sha512-ummTu4R8Lhd1nO3nWrW7eeiHA2ey3ntbWFKkYakm4rcbvT6meWp+oykyrYBNFQKhobQl9CydmUWlCyztYXFPJw==}
@@ -5488,11 +5522,9 @@ packages:
 
   /tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
-    dev: false
 
   /tiny-warning@1.0.3:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
-    dev: false
 
   /tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
