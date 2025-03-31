@@ -2,7 +2,7 @@ import { Link } from "@tanstack/solid-router";
 
 export default function Header() {
   return (
-    <header class="fixed top-0 z-10 flex h-[90px] w-[100vw] flex-grow items-center justify-between border-b-2 border-[#FFA366] bg-background p-2 pb-[4px] pt-2 sm:h-[70px] sm:flex-row sm:gap-4 sm:p-4 sm:pb-[4px] sm:pt-0">
+    <header class="bg-white fixed top-0 z-10 flex h-[90px] w-[100vw] flex-grow items-center justify-between border-b-2 border-[#FFA366] bg-background p-2 pb-[4px] pt-2 sm:h-[70px] sm:flex-row sm:gap-4 sm:p-4 sm:pb-[4px] sm:pt-0">
       <div class="flex flex-grow flex-col">
         <div class="flex w-full flex-col items-start justify-center sm:w-auto sm:flex-row sm:items-center sm:gap-2">
           <Link class="text-4xl font-bold text-[#FF6B00]" to="/">
@@ -13,14 +13,6 @@ export default function Header() {
               <div class="font-sans">
                 <div class="relative flex-grow">
                   <div class="relative">
-                    <input
-                      type="text"
-                      class="flex h-9 w-full border border-gray-500 bg-transparent px-3 py-1 text-sm outline-none pr-12 font-sans font-medium sm:w-[300px] md:w-[375px]"
-                      autocapitalize="off"
-                      autocorrect="off"
-                      placeholder="Search..."
-                      value=""
-                    />
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="24"
@@ -39,22 +31,6 @@ export default function Header() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="flex flex-row justify-between space-x-4">
-              <div class="relative">
-                <Link
-                  class="text-lg text-[#FF6B00] hover:underline"
-                  to="/order"
-                >
-                  ORDER
-                </Link>
-              </div>
-              <Link
-                class="hidden text-lg text-[#FF6B00] hover:underline md:block"
-                to="/order-history"
-              >
-                ORDER HISTORY
-              </Link>
             </div>
           </div>
         </div>

@@ -26,8 +26,8 @@ export const Route = createRootRoute({
       categories: await getCategories(),
     };
   },
-  staleTime: 1000 * 60 * 5, // 5 minutes
   component: RootComponent,
+  staleTime: 1000 * 60 * 5, // 5 minutes
 });
 
 function RootComponent() {
