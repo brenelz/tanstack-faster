@@ -1,5 +1,5 @@
 import { createFileRoute, getRouteApi } from "@tanstack/solid-router";
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/")({
@@ -22,15 +22,17 @@ function Home() {
                 }}
                 class="flex w-[125px] flex-col items-center text-center"
               >
-                <img
-                  alt={`A small picture of ${category.name}`}
-                  loading="eager"
-                  width="48"
-                  height="48"
-                  decoding="sync"
-                  class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
-                  src={category.image_url}
-                />
+                <Show when={category.image_url}>
+                  {(image_url) => (<img
+                    alt={`A small picture of ${category.name}`}
+                    loading="eager"
+                    width="48"
+                    height="48"
+                    decoding="sync"
+                    class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
+                    src={image_url()}
+                  />)}
+                </Show>
                 <span class="text-xs">{category.name}</span>
               </Link>
             )}

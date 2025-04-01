@@ -23,7 +23,7 @@ function CategoryPage() {
         <div class="w-full space-y-8">
           <h1 class="text-2xl font-bold text-[#FF6B00]">{category().name}</h1>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            <For each={category().products as Product[]}>
+            <For each={category().products}>
               {(product) => (
                 <Link
                   to="/products/$product"
@@ -32,15 +32,17 @@ function CategoryPage() {
                   }}
                   class="flex w-[125px] flex-col items-center text-center"
                 >
-                  <img
-                    alt={`A small picture of ${product.name}`}
-                    loading="eager"
-                    width="48"
-                    height="48"
-                    decoding="sync"
-                    class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
-                    src={product.image_url}
-                  />
+                  <Show when={product.image_url}>
+                    {(image_url) => (<img
+                      alt={`A small picture of ${product.name}`}
+                      loading="eager"
+                      width="48"
+                      height="48"
+                      decoding="sync"
+                      class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
+                      src={image_url()}
+                    />)}
+                  </Show>
                   <span class="text-xs">{product.name}</span>
                   <span class="text-xs text-[#FF6B00]">{product.price}</span>
                 </Link>
