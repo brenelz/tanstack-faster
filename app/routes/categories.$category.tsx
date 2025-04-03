@@ -9,7 +9,7 @@ export const Route = createFileRoute("/categories/$category")({
   loader: async ({ params }) => {
     const category = await getCategory({ data: { slug: params.category } });
 
-    await preloadImageIds(category.products.map(product => product.id), 48)
+    preloadImageIds(category.products.map(product => product.id), 48)
 
     return {
       category

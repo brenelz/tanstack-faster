@@ -8,7 +8,7 @@ export const Route = createFileRoute("/products/$product")({
   loader: async ({ params }) => {
     const product = await getProduct({ data: { product: params.product } });
 
-    await preloadImageIds([product.id], 400)
+    preloadImageIds([product.id], 400)
 
     return {
       product,

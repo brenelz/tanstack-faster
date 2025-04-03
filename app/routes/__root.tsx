@@ -26,7 +26,7 @@ export const Route = createRootRoute({
   loader: async () => {
     const categories = await getCategories();
 
-    await preloadImageIds(categories.map(category => category.id), 48);
+    preloadImageIds(categories.map(category => category.id), 48);
 
     return {
       categories,
