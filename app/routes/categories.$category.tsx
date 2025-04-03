@@ -2,13 +2,17 @@ import { createFileRoute } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 import { getCategory } from "@/lib/server";
-import { Product } from "@/db/schema";
+import { preloadImageIds } from "@/lib/imagePreloader";
 
 export const Route = createFileRoute("/categories/$category")({
   component: CategoryPage,
   loader: async ({ params }) => {
+    const category = await getCategory({ data: { slug: params.category } });
+
+    await preloadImageIds(category.products.map(product => product.id), 48)
+
     return {
-      category: await getCategory({ data: { slug: params.category } }),
+      category
     };
   },
   staleTime: 1000 * 60 * 5, // 5 minutes
@@ -34,10 +38,8 @@ function CategoryPage() {
                 >
                   <img
                     alt={`A small picture of ${product.name}`}
-                    loading="eager"
                     width="48"
                     height="48"
-                    decoding="sync"
                     class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
                     src={`https://picsum.photos/id/${product.id}/48`}
                   />

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { getCategories } from "@/lib/server";
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
+import { preloadImageIds } from "@/lib/imagePreloader";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -23,8 +24,12 @@ export const Route = createRootRoute({
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   loader: async () => {
+    const categories = await getCategories();
+
+    await preloadImageIds(categories.map(category => category.id), 48);
+
     return {
-      categories: await getCategories(),
+      categories,
     };
   },
   component: RootComponent,

@@ -24,10 +24,8 @@ function Home() {
               >
                 <img
                   alt={`A small picture of ${category.name}`}
-                  loading="eager"
                   width="48"
                   height="48"
-                  decoding="sync"
                   class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
                   src={`https://picsum.photos/id/${category.id}/48`}
                 />

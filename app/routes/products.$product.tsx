@@ -1,12 +1,17 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { Show } from "solid-js";
 import { getProduct } from "@/lib/server";
+import { preloadImageIds } from "@/lib/imagePreloader";
 
 export const Route = createFileRoute("/products/$product")({
   component: ProductPage,
   loader: async ({ params }) => {
+    const product = await getProduct({ data: { product: params.product } });
+
+    await preloadImageIds([product.id], 400)
+
     return {
-      product: await getProduct({ data: { product: params.product } }),
+      product,
     };
   },
   staleTime: 1000 * 60 * 5, // 5 minutes
@@ -24,10 +29,8 @@ function ProductPage() {
             <div class="flex justify-center">
               <img
                 alt={`A picture of ${product().name}`}
-                loading="eager"
                 width="400"
                 height="400"
-                decoding="sync"
                 class="h-[400px] w-[400px] border object-cover"
                 src={`https://picsum.photos/id/${product().id}/400`}
               />
