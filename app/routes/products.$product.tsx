@@ -22,17 +22,15 @@ function ProductPage() {
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Product Image */}
             <div class="flex justify-center">
-              <Show when={product().image_url}>
-                <img
-                  alt={`A picture of ${product().name}`}
-                  loading="eager"
-                  width="400"
-                  height="400"
-                  decoding="sync"
-                  class="h-[400px] w-[400px] border object-cover"
-                  src={product().image_url!}
-                />
-              </Show>
+              <img
+                alt={`A picture of ${product().name}`}
+                loading="eager"
+                width="400"
+                height="400"
+                decoding="sync"
+                class="h-[400px] w-[400px] border object-cover"
+                src={`https://picsum.photos/id/${product().id}/400`}
+              />
             </div>
 
             {/* Product Info */}
