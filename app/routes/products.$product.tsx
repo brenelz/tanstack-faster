@@ -23,15 +23,15 @@ function ProductPage() {
             {/* Product Image */}
             <div class="flex justify-center">
               <Show when={product().image_url}>
-                {(image_url) => (<img
-                  alt={`A small picture of ${product().name}`}
+                <img
+                  alt={`A picture of ${product().name}`}
                   loading="eager"
-                  width="48"
-                  height="48"
+                  width="400"
+                  height="400"
                   decoding="sync"
-                  class="mb-2 h-14 w-14 border hover:bg-accent2 object-cover"
-                  src={image_url()}
-                />)}
+                  class="h-[400px] w-[400px] border object-cover"
+                  src={product().image_url!}
+                />
               </Show>
             </div>
 
