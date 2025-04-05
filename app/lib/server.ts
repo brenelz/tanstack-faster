@@ -1,8 +1,10 @@
 import { createServerFn } from "@tanstack/solid-start";
 import { db } from "@/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import {
+  cartItems,
   categories as categoriesTable,
+  Product,
   products as productsTable,
 } from "@/db/schema";
 
@@ -45,4 +47,56 @@ export const getProduct = createServerFn()
       .limit(1);
 
     return product[0];
+  });
+
+export const getCart = createServerFn()
+  .handler(async () => {
+    const items = await db
+      .select({
+        id: cartItems.id,
+        quantity: cartItems.quantity,
+        product: {
+          id: productsTable.id,
+          name: productsTable.name,
+          price: productsTable.price,
+          description: productsTable.description,
+          slug: productsTable.slug,
+        },
+      })
+      .from(cartItems)
+      .leftJoin(productsTable, eq(cartItems.product_id, productsTable.id))
+      .orderBy(desc(cartItems.created_at));
+
+    return items;
+  });
+
+// actions
+export const addItemToCart = createServerFn()
+  .validator((p: { product: Product }) => {
+    return p;
+  })
+  .handler(async ({ data }) => {
+    const cartItem = await db
+      .select()
+      .from(cartItems)
+      .where(eq(cartItems.product_id, data.product.id))
+      .limit(1);
+
+    if (cartItem.length > 0) {
+      await db
+        .update(cartItems)
+        .set({
+          quantity: cartItem[0].quantity + 1,
+        })
+        .where(eq(cartItems.product_id, data.product.id));
+    } else {
+      await db.insert(cartItems).values({
+        product_id: data.product.id,
+        quantity: 1,
+      });
+    }
+
+    return {
+      success: true,
+    };
   });

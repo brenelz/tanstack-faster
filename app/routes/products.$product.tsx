@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/solid-router";
-import { Show } from "solid-js";
-import { getProduct } from "@/lib/server";
+import { createFileRoute, useNavigate } from "@tanstack/solid-router";
+import { Show, createSignal } from "solid-js";
+import { addItemToCart, getProduct } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
 
 export const Route = createFileRoute("/products/$product")({
@@ -19,6 +19,15 @@ export const Route = createFileRoute("/products/$product")({
 
 function ProductPage() {
   const data = Route.useLoaderData();
+  const [isAdding, setIsAdding] = createSignal(false);
+  const navigate = useNavigate();
+
+  const handleAddToCart = async () => {
+    setIsAdding(true);
+    await addItemToCart({ data: { product: data().product } });
+    setIsAdding(false);
+    navigate({ to: '/cart' });
+  };
 
   return (
     <Show when={data().product} fallback={<div>Product not found</div>}>
@@ -45,6 +54,13 @@ function ProductPage() {
                 {product().price}
               </p>
               <p class="text-gray-600">{product().description}</p>
+              <button
+                class="w-full bg-[#FF6B00] text-white py-2 px-4 rounded-md hover:bg-[#FFA366] disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={handleAddToCart}
+                disabled={isAdding()}
+              >
+                {isAdding() ? "Adding..." : "Add to Cart"}
+              </button>
             </div>
           </div>
         </div>
