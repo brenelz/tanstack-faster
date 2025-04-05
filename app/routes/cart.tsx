@@ -1,7 +1,8 @@
 import { getCart, removeFromCart } from "@/lib/server";
 import { createFileRoute, useRouter } from "@tanstack/solid-router";
-import { createResource, For, Show, Suspense } from "solid-js";
+import { For, Show, Suspense } from "solid-js";
 import { Link } from "@tanstack/solid-router";
+import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute("/cart")({
     component: CartPage,
@@ -16,10 +17,10 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
     const data = Route.useLoaderData();
     const router = useRouter();
-    const [cart] = createResource(() => data().cartPromise);
+    const cart = createAsync(() => data().cartPromise);
 
     const total = () => {
-        return cart()?.reduce((sum, item) => {
+        return cart.latest?.reduce((sum, item) => {
             if (!item.product) return sum;
             return sum + (Number(item.product.price) * item.quantity);
         }, 0).toFixed(2);
@@ -35,7 +36,7 @@ function CartPage() {
             <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
             <Suspense fallback={<div>Loading...</div>}>
                 <Show
-                    when={cart() && cart()!.length > 0}
+                    when={cart.latest && cart.latest.length > 0}
                     fallback={
                         <div class="bg-white rounded-lg shadow">
                             <div class="p-6">
@@ -47,7 +48,7 @@ function CartPage() {
                     <div class="bg-white rounded-lg shadow">
                         <div class="p-6">
                             <div class="space-y-4">
-                                <For each={cart()}>
+                                <For each={cart.latest}>
                                     {(item) => (
                                         <Show when={item.product} fallback={null}>
                                             {(product) => (

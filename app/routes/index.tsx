@@ -1,6 +1,7 @@
 import { createFileRoute, getRouteApi } from "@tanstack/solid-router";
-import { createResource, For } from "solid-js";
+import { For } from "solid-js";
 import { Link } from "@tanstack/solid-router";
+import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const data = getRouteApi("__root__").useLoaderData();
-  const [categories] = createResource(() => data().categoriesPromise);
+  const categories = createAsync(() => data().categoriesPromise);
 
   return (
     <div class="w-full space-y-12">
