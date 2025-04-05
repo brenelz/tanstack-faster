@@ -100,3 +100,17 @@ export const addItemToCart = createServerFn()
       success: true,
     };
   });
+
+export const removeFromCart = createServerFn()
+  .validator((cartItem: { cartItemId: number }) => {
+    return cartItem;
+  })
+  .handler(async ({ data }) => {
+    await db
+      .delete(cartItems)
+      .where(eq(cartItems.id, data.cartItemId));
+
+    return {
+      success: true,
+    };
+  });
