@@ -6,7 +6,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { getCart, getCategories } from "@/lib/server";
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 import { preloadImageIds } from "@/lib/imagePreloader";
-import { createResource } from "solid-js";
+import { createResource, Show, Suspense } from "solid-js";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -25,16 +25,13 @@ export const Route = createRootRoute({
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   loader: async () => {
-    const categories = await getCategories();
-
-    preloadImageIds(categories.map(category => category.id), 48);
-
-    // don't block loading the page for the cart
+    // don't block loading the page
+    const categoriesPromise = getCategories();
     const cartPromise = getCart();
 
     return {
       cartPromise,
-      categories,
+      categoriesPromise,
     };
   },
   component: RootComponent,
@@ -44,20 +41,25 @@ export const Route = createRootRoute({
 function RootComponent() {
   const data = Route.useLoaderData();
   const [cart] = createResource(() => data().cartPromise);
+  const [categories] = createResource(() => data().categoriesPromise);
 
   return (
     <div>
-      <Header cart={cart() ?? []} />
+      <Header cart={cart()} />
       <div class="pt-[85px] sm:pt-[70px]">
         <div class="flex flex-grow font-mono">
-          <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
-            <Sidebar categories={data().categories} />
-          </aside>
-          <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
-            <div class="w-full p-4">
-              <Outlet />
-            </div>
-          </main>
+          <Suspense fallback={<div class="p-4">Loading...</div>}>
+            <Show when={categories()}>
+              <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
+                <Sidebar categories={categories()!} />
+              </aside>
+              <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
+                <div class="w-full p-4">
+                  <Outlet />
+                </div>
+              </main>
+            </Show>
+          </Suspense>
         </div>
       </div>
       <TanStackRouterDevtools />

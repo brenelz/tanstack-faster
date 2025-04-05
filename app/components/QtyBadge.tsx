@@ -1,7 +1,7 @@
 import { Cart } from "@/lib/server";
 import { Show } from "solid-js";
 
-export default function QtyBadge(props: { cart: Cart }) {
+export default function QtyBadge(props: { cart?: Cart }) {
     const cartQuantity = () => {
         if (!props.cart) return 0;
         return props.cart.reduce((total, item) => total + item.quantity, 0);
