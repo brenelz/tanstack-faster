@@ -32,3 +32,5 @@ export const cartItems = pgTable("cart_items", {
   created_at: timestamp("created_at").defaultNow().notNull(),
   updated_at: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export type CartItem = typeof cartItems.$inferSelect;

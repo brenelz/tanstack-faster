@@ -3,7 +3,7 @@ import { Outlet, createRootRoute } from "@tanstack/solid-router";
 import appCss from "@/styles/app.css?url";
 import Header from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
-import { getCategories } from "@/lib/server";
+import { getCart, getCategories } from "@/lib/server";
 import { TanStackRouterDevtools } from '@tanstack/solid-router-devtools'
 import { preloadImageIds } from "@/lib/imagePreloader";
 
@@ -25,10 +25,12 @@ export const Route = createRootRoute({
   }),
   loader: async () => {
     const categories = await getCategories();
+    const cart = await getCart();
 
     preloadImageIds(categories.map(category => category.id), 48);
 
     return {
+      cart,
       categories,
     };
   },
@@ -41,7 +43,7 @@ function RootComponent() {
 
   return (
     <div>
-      <Header />
+      <Header cart={data().cart} />
       <div class="pt-[85px] sm:pt-[70px]">
         <div class="flex flex-grow font-mono">
           <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">

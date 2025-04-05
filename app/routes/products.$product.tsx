@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/solid-router";
+import { createFileRoute, useNavigate, useRouter } from "@tanstack/solid-router";
 import { Show, createSignal } from "solid-js";
 import { addItemToCart, getProduct } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
@@ -21,11 +21,13 @@ function ProductPage() {
   const data = Route.useLoaderData();
   const [isAdding, setIsAdding] = createSignal(false);
   const navigate = useNavigate();
+  const router = useRouter();
 
   const handleAddToCart = async () => {
     setIsAdding(true);
     await addItemToCart({ data: { product: data().product } });
     setIsAdding(false);
+    router.invalidate();
     navigate({ to: '/cart' });
   };
 

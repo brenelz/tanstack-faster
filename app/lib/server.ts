@@ -70,6 +70,8 @@ export const getCart = createServerFn()
     return items;
   });
 
+export type Cart = Awaited<ReturnType<typeof getCart>>;
+
 // actions
 export const addItemToCart = createServerFn()
   .validator((p: { product: Product }) => {

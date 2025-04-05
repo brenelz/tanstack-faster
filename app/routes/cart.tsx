@@ -1,23 +1,24 @@
 import { getCart, removeFromCart } from "@/lib/server";
-import { createFileRoute } from "@tanstack/solid-router";
-import { For, Show, createSignal } from "solid-js";
+import { createFileRoute, useRouter } from "@tanstack/solid-router";
+import { For, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/cart")({
     component: CartPage,
     loader: async () => {
-        const cartItems = await getCart();
+        const cart = await getCart();
         return {
-            cartItems
+            cart
         };
     }
 });
 
 function CartPage() {
     const data = Route.useLoaderData();
+    const router = useRouter();
 
     const total = () => {
-        return data().cartItems.reduce((sum, item) => {
+        return data().cart.reduce((sum, item) => {
             if (!item.product) return sum;
             return sum + (Number(item.product.price) * item.quantity);
         }, 0).toFixed(2);
@@ -25,13 +26,14 @@ function CartPage() {
 
     const handleRemove = async (itemId: number) => {
         await removeFromCart({ data: { cartItemId: itemId } });
+        router.invalidate();
     };
 
     return (
         <div class="w-full space-y-8">
             <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
             <Show
-                when={data().cartItems.length > 0}
+                when={data().cart.length > 0}
                 fallback={
                     <div class="bg-white rounded-lg shadow">
                         <div class="p-6">
@@ -43,7 +45,7 @@ function CartPage() {
                 <div class="bg-white rounded-lg shadow">
                     <div class="p-6">
                         <div class="space-y-4">
-                            <For each={data().cartItems}>
+                            <For each={data().cart}>
                                 {(item) => (
                                     <Show when={item.product} fallback={null}>
                                         {(product) => (

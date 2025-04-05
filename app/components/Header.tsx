@@ -1,14 +1,12 @@
 import { Link } from "@tanstack/solid-router";
-import { getCart } from "@/lib/server";
-import { createResource, Show } from "solid-js";
+import { Show } from "solid-js";
+import { Cart } from "@/lib/server";
 
-export default function Header() {
-  const [cartItems] = createResource(() => getCart());
+export default function Header(props: { cart: Cart }) {
 
   const cartQuantity = () => {
-    const items = cartItems();
-    if (!items) return 0;
-    return items.reduce((total, item) => total + item.quantity, 0);
+    if (!props.cart) return 0;
+    return props.cart.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
