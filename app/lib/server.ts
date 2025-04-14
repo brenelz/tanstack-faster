@@ -3,8 +3,8 @@ import { db } from "@/db";
 import { desc, eq } from "drizzle-orm";
 import {
   cartItems,
-  categories as categoriesTable,
   Product,
+  categories as categoriesTable,
   products as productsTable,
 } from "@/db/schema";
 
@@ -51,6 +51,7 @@ export const getProduct = createServerFn()
 
 export const getCart = createServerFn()
   .handler(async () => {
+    // await new Promise(resolve => setTimeout(resolve, 5000));
     const items = await db
       .select({
         id: cartItems.id,

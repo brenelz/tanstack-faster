@@ -15,7 +15,7 @@ function Home() {
     <div class="w-full space-y-12">
       <div class="space-y-4">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          <For each={categories()}>
+          <For each={categories.latest}>
             {(category) => (
               <Link
                 to="/categories/$category"

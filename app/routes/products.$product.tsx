@@ -2,16 +2,17 @@ import { createFileRoute, useNavigate, useRouter } from "@tanstack/solid-router"
 import { Show, createSignal } from "solid-js";
 import { addItemToCart, getProduct } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
+import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute("/products/$product")({
   component: ProductPage,
   loader: async ({ params }) => {
-    const product = await getProduct({ data: { product: params.product } });
+    const productPromise = getProduct({ data: { product: params.product } });
 
-    preloadImageIds([product.id], 400)
+    productPromise.then(product => preloadImageIds([product.id], 400));
 
     return {
-      product,
+      productPromise,
     };
   },
   staleTime: 1000 * 60 * 5, // 5 minutes
@@ -19,20 +20,20 @@ export const Route = createFileRoute("/products/$product")({
 
 function ProductPage() {
   const data = Route.useLoaderData();
+  const product = createAsync(() => data().productPromise);
   const [isAdding, setIsAdding] = createSignal(false);
   const navigate = useNavigate();
   const router = useRouter();
 
   const handleAddToCart = async () => {
     setIsAdding(true);
-    await addItemToCart({ data: { product: data().product } });
-    setIsAdding(false);
+    await addItemToCart({ data: { product: product()! } });
     router.invalidate();
     navigate({ to: '/cart' });
   };
 
   return (
-    <Show when={data().product} fallback={<div>Product not found</div>}>
+    <Show when={product()} fallback={<div>Product not found</div>}>
       {(product) => (
         <div class="w-full space-y-8">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

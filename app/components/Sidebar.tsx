@@ -3,7 +3,7 @@ import { Link } from "@tanstack/solid-router";
 import { Category } from "@/db/schema";
 
 type SidebarProps = {
-  categories: Category[];
+  categories?: Category[];
 };
 
 export function Sidebar(props: SidebarProps) {
@@ -18,7 +18,10 @@ export function Sidebar(props: SidebarProps) {
             <li class="w-full">
               <Link
                 class="block w-full py-1 text-xs text-gray-800 hover:bg-accent2 hover:underline"
-                to={`/categories/${category.slug}`}
+                to="/categories/$category"
+                params={{
+                  category: category.slug,
+                }}
               >
                 {category.name}
               </Link>

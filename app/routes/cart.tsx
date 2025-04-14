@@ -2,25 +2,22 @@ import { getCart, removeFromCart } from "@/lib/server";
 import { createFileRoute, useRouter } from "@tanstack/solid-router";
 import { For, Show, Suspense } from "solid-js";
 import { Link } from "@tanstack/solid-router";
-import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute("/cart")({
     component: CartPage,
     loader: async () => {
-        const cartPromise = getCart();
         return {
-            cartPromise
-        };
+            cart: await getCart()
+        }
     }
 });
 
 function CartPage() {
-    const data = Route.useLoaderData();
     const router = useRouter();
-    const cart = createAsync(() => data().cartPromise);
+    const data = Route.useLoaderData();
 
     const total = () => {
-        return cart.latest?.reduce((sum, item) => {
+        return data().cart.reduce((sum, item) => {
             if (!item.product) return sum;
             return sum + (Number(item.product.price) * item.quantity);
         }, 0).toFixed(2);
@@ -34,9 +31,9 @@ function CartPage() {
     return (
         <div class="w-full space-y-8">
             <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div class="p-4">Loading Cart...</div>}>
                 <Show
-                    when={cart.latest && cart.latest.length > 0}
+                    when={data().cart && data().cart.length > 0}
                     fallback={
                         <div class="bg-white rounded-lg shadow">
                             <div class="p-6">
@@ -48,7 +45,7 @@ function CartPage() {
                     <div class="bg-white rounded-lg shadow">
                         <div class="p-6">
                             <div class="space-y-4">
-                                <For each={cart.latest}>
+                                <For each={data().cart}>
                                     {(item) => (
                                         <Show when={item.product} fallback={null}>
                                             {(product) => (

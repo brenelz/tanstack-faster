@@ -3,16 +3,17 @@ import { For, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 import { getCategory } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
+import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute("/categories/$category")({
   component: CategoryPage,
   loader: async ({ params }) => {
-    const category = await getCategory({ data: { slug: params.category } });
+    const categoryPromise = getCategory({ data: { slug: params.category } });
 
-    preloadImageIds(category.products.map(product => product.id), 48)
+    categoryPromise.then(category => preloadImageIds(category.products.map(product => product.id), 48));
 
     return {
-      category
+      categoryPromise
     };
   },
   staleTime: 1000 * 60 * 5, // 5 minutes
@@ -20,9 +21,10 @@ export const Route = createFileRoute("/categories/$category")({
 
 function CategoryPage() {
   const data = Route.useLoaderData();
+  const category = createAsync(() => data().categoryPromise);
 
   return (
-    <Show when={data().category} fallback={<div>Category not found</div>}>
+    <Show when={category.latest} fallback={<div>Category not found</div>}>
       {(category) => (
         <div class="w-full space-y-8">
           <h1 class="text-2xl font-bold text-[#FF6B00]">{category().name}</h1>
