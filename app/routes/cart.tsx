@@ -1,6 +1,6 @@
 import { getCart, removeFromCart } from "@/lib/server";
 import { createFileRoute, useRouter } from "@tanstack/solid-router";
-import { For, Show, Suspense } from "solid-js";
+import { createComputed, createSignal, For, Show, Suspense } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/cart")({
@@ -15,6 +15,11 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
     const router = useRouter();
     const data = Route.useLoaderData();
+    const [optimisticCart, setOptimisticCart] = createSignal(data().cart);
+
+    createComputed(() => {
+        setOptimisticCart(data().cart);
+    });
 
     const total = () => {
         return data().cart.reduce((sum, item) => {
@@ -24,6 +29,7 @@ function CartPage() {
     };
 
     const handleRemove = async (itemId: number) => {
+        setOptimisticCart(optimisticCart => optimisticCart.filter(item => item.id !== itemId));
         await removeFromCart({ data: { cartItemId: itemId } });
         router.invalidate();
     };
@@ -33,7 +39,7 @@ function CartPage() {
             <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
             <Suspense fallback={<div class="p-4">Loading Cart...</div>}>
                 <Show
-                    when={data().cart && data().cart.length > 0}
+                    when={optimisticCart() && optimisticCart().length > 0}
                     fallback={
                         <div class="bg-white rounded-lg shadow">
                             <div class="p-6">
@@ -45,7 +51,7 @@ function CartPage() {
                     <div class="bg-white rounded-lg shadow">
                         <div class="p-6">
                             <div class="space-y-4">
-                                <For each={data().cart}>
+                                <For each={optimisticCart()}>
                                     {(item) => (
                                         <Show when={item.product} fallback={null}>
                                             {(product) => (
