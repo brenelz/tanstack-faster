@@ -46,7 +46,7 @@ function RootComponent() {
       <Header cart={cart.latest} />
       <div class="pt-[85px] sm:pt-[70px]">
         <div class="flex flex-grow font-mono">
-          <Suspense fallback={<div class="p-4">Loading Categories...</div>}>
+          <Show when={categories.latest} fallback={<div class="p-4">Loading Categories...</div>}>
             <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
               <Sidebar categories={categories.latest} />
             </aside>
@@ -55,7 +55,7 @@ function RootComponent() {
                 <Outlet />
               </div>
             </main>
-          </Suspense>
+          </Show>
         </div>
       </div>
       <TanStackRouterDevtools />
