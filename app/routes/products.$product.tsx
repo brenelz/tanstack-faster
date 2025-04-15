@@ -33,7 +33,7 @@ function ProductPage() {
   };
 
   return (
-    <Show when={product()} fallback={<div>Product not found</div>}>
+    <Show when={product()}>
       {(product) => (
         <div class="w-full space-y-8">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

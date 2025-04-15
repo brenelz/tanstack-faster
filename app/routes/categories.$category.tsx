@@ -24,7 +24,7 @@ function CategoryPage() {
   const category = createAsync(() => data().categoryPromise);
 
   return (
-    <Show when={category.latest} fallback={<div>Category not found</div>}>
+    <Show when={category()}>
       {(category) => (
         <div class="w-full space-y-8">
           <h1 class="text-2xl font-bold text-[#FF6B00]">{category().name}</h1>
