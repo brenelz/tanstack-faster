@@ -34,7 +34,7 @@ function ProductPage() {
   };
 
   return (
-    <Show when={product()}>
+    <Show when={product.latest}>
       {(product) => (
         <div class="w-full space-y-8">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
