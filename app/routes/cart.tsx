@@ -9,7 +9,8 @@ export const Route = createFileRoute("/cart")({
         return {
             cart: await getCart()
         }
-    }
+    },
+    gcTime: 0
 });
 
 function CartPage() {

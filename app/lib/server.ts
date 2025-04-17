@@ -51,7 +51,6 @@ export const getProduct = createServerFn()
 
 export const getCart = createServerFn()
   .handler(async () => {
-    // await new Promise(resolve => setTimeout(resolve, 5000));
     const items = await db
       .select({
         id: cartItems.id,
