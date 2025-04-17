@@ -29,6 +29,7 @@ function ProductPage() {
     setIsAdding(true);
     await addItemToCart({ data: { product: product()! } });
     router.invalidate();
+    await router.preloadRoute({ to: '/cart' })
     navigate({ to: '/cart' });
   };
 
