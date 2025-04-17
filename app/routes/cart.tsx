@@ -11,7 +11,7 @@ export const Route = createFileRoute("/cart")({
             cart: await getCart()
         }
     },
-    staleTime: 0
+    gcTime: 0
 });
 
 function PendingCartPage() {
