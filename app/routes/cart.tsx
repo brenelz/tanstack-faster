@@ -5,13 +5,23 @@ import { Link } from "@tanstack/solid-router";
 
 export const Route = createFileRoute("/cart")({
     component: CartPage,
+    pendingComponent: PendingCartPage,
     loader: async () => {
         return {
             cart: await getCart()
         }
     },
-    gcTime: 0
+    staleTime: 0
 });
+
+function PendingCartPage() {
+    return (
+        <div class="w-full space-y-8">
+            <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
+            <div class="p-4">Loading Cart...</div>
+        </div>
+    )
+}
 
 function CartPage() {
     const router = useRouter();
