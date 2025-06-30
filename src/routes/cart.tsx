@@ -1,9 +1,9 @@
 import { getCart, removeFromCart } from "@/lib/server";
-import { useRouter } from "@tanstack/solid-router";
+import { useRouter, createFileRoute } from "@tanstack/solid-router";
 import { createComputed, createSignal, For, Show, Suspense } from "solid-js";
 import { Link } from "@tanstack/solid-router";
 
-export const Route = createFileRoute({
+export const Route = createFileRoute("/cart")({
   component: CartPage,
   pendingComponent: PendingCartPage,
   loader: async () => {

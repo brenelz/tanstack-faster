@@ -46,16 +46,16 @@ function RootComponent() {
       <Header cart={cart.latest} />
       <div class="pt-[85px] sm:pt-[70px]">
         <div class="flex flex-grow font-mono">
-          <Suspense fallback={<div class="p-4">Loading Categories...</div>}>
-            <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
+          <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
+            <Suspense fallback={<div class="p-4">Loading Categories...</div>}>
               <Sidebar categories={categories.latest} />
-            </aside>
-            <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
-              <div class="w-full p-4">
-                <Outlet />
-              </div>
-            </main>
-          </Suspense>
+            </Suspense>
+          </aside>
+          <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
+            <div class="w-full p-4">
+              <Outlet />
+            </div>
+          </main>
         </div>
       </div>
       <TanStackRouterDevtools />

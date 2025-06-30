@@ -1,11 +1,11 @@
 import { } from "@tanstack/solid-router";
 import { For, Show } from "solid-js";
-import { Link } from "@tanstack/solid-router";
+import { Link, createFileRoute } from "@tanstack/solid-router";
 import { getCategory } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
 import { createAsync } from "@/lib/utils";
 
-export const Route = createFileRoute({
+export const Route = createFileRoute("/categories/$category")({
   component: CategoryPage,
   loader: async ({ params }) => {
     const categoryPromise = getCategory({ data: { slug: params.category } });
