@@ -1,10 +1,11 @@
-import { useNavigate, useRouter, createFileRoute } from "@tanstack/solid-router";
+import { createFileRoute } from '@tanstack/solid-router'
+import { useNavigate, useRouter } from "@tanstack/solid-router";
 import { Show, createSignal } from "solid-js";
 import { addItemToCart, getProduct } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
 import { createAsync } from "@/lib/utils";
 
-export const Route = createFileRoute("/products/$product")({
+export const Route = createFileRoute('/products/$product')({
   component: ProductPage,
   loader: async ({ params }) => {
     const productPromise = getProduct({ data: { product: params.product } });

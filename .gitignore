@@ -21,3 +21,5 @@ yarn.lock
 dist
 .ouput
 .netlify
+.tanstack-start
+.nitro

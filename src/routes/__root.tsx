@@ -1,6 +1,6 @@
 import { Outlet, createRootRoute } from "@tanstack/solid-router";
 
-import appCss from "@/styles/app.css?url";
+import "@/styles/app.css";
 import Header from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { getCart, getCategories } from "@/lib/server";
@@ -22,7 +22,6 @@ export const Route = createRootRoute({
         title: "TanStackFaster",
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
   }),
   loader: async () => {
     // don't block loading the page
