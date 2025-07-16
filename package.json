@@ -12,20 +12,20 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.0",
-    "@tanstack/solid-router": "1.125.3",
-    "@tanstack/solid-start": "1.125.3",
+    "@neondatabase/serverless": "^1.0.1",
+    "@tanstack/solid-router": "^1.128.0",
+    "@tanstack/solid-start": "^1.128.0",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.41.0",
-    "solid-js": "^1.9.5",
+    "solid-js": "^1.9.7",
     "vite": "^6.3.5"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.17",
-    "@tanstack/solid-router-devtools": "1.125.3",
-    "tailwindcss": "^4",
-    "typescript": "^5.8.2",
-    "vite-plugin-solid": "^2.11.6",
+    "@tailwindcss/vite": "^4.1.11",
+    "@tanstack/solid-router-devtools": "^1.128.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.8.3",
+    "vite-plugin-solid": "^2.11.7",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
