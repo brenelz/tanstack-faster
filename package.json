@@ -13,8 +13,8 @@
   "description": "",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.1",
-    "@tanstack/solid-router": "^1.128.0",
-    "@tanstack/solid-start": "^1.128.0",
+    "@tanstack/solid-router": "^1.129.7",
+    "@tanstack/solid-start": "^1.129.7",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.41.0",
     "solid-js": "^1.9.7",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "@tanstack/solid-router-devtools": "^1.128.0",
+    "@tanstack/solid-router-devtools": "^1.129.7",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
     "vite-plugin-solid": "^2.11.7",
