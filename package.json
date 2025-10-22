@@ -13,8 +13,8 @@
   "description": "",
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
-    "@tanstack/solid-router": "^1.133.20",
-    "@tanstack/solid-start": "^1.133.21",
+    "@tanstack/solid-router": "^1.133.23",
+    "@tanstack/solid-start": "^1.133.23",
     "drizzle-kit": "^0.30.6",
     "drizzle-orm": "^0.41.0",
     "nitro": "npm:nitro-nightly@3.0.1-20251019-172914-d1eea57b",
@@ -25,7 +25,7 @@
     "@tailwindcss/vite": "^4.1.15",
     "tailwindcss": "^4.1.15",
     "typescript": "^5.9.3",
-    "vite-plugin-solid": "^2.11.9",
+    "vite-plugin-solid": "^2.11.10",
     "vite-tsconfig-paths": "^5.1.4"
   }
 }
