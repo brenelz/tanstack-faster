@@ -26,6 +26,7 @@ function ProductPage() {
   const router = useRouter();
 
   const handleAddToCart = async () => {
+    console.log('product', product());
     setIsAdding(true);
     await addItemToCart({ data: { product: product()! } });
     router.invalidate();
@@ -35,29 +36,29 @@ function ProductPage() {
 
   return (
     <Show when={product()}>
-      {(product) => (
+      {(productItem) => (
         <div class="w-full space-y-8">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Product Image */}
             <div class="flex justify-center">
               <img
-                alt={`A picture of ${product().name}`}
+                alt={`A picture of ${productItem().name}`}
                 width="400"
                 height="400"
                 class="h-[400px] w-[400px] border object-cover"
-                src={`https://picsum.photos/id/${product().id}/400`}
+                src={`https://picsum.photos/id/${productItem().id}/400`}
               />
             </div>
 
             {/* Product Info */}
             <div class="space-y-4">
               <h1 class="text-3xl font-bold text-[#FF6B00]">
-                {product().name}
+                {productItem().name}
               </h1>
               <p class="text-2xl font-semibold text-[#FF6B00]">
-                {product().price}
+                {productItem().price}
               </p>
-              <p class="text-gray-600">{product().description}</p>
+              <p class="text-gray-600">{productItem().description}</p>
               <button
                 class="w-full bg-[#FF6B00] text-white py-2 px-4 rounded-md hover:bg-[#FFA366] disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleAddToCart}
