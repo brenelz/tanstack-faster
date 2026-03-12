@@ -1,7 +1,6 @@
 import { Link } from "@tanstack/solid-router";
 import { Cart } from "@/lib/server";
 import QtyBadge from "./QtyBadge";
-import { Suspense } from "solid-js";
 
 export default function Header(props: { cart?: Cart }) {
   return (

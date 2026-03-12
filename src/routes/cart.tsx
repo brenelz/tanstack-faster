@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/solid-router'
 import { getCart, removeFromCart } from "@/lib/server";
-import { useRouter,} from "@tanstack/solid-router";
-import { createComputed, createSignal, For, Show, Suspense } from "solid-js";
+import { useRouter, } from "@tanstack/solid-router";
+import { createEffect, createSignal, For, Loading, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
+import { GelLocalDateStringBuilder } from 'drizzle-orm/gel-core';
 
 export const Route = createFileRoute('/cart')({
   component: CartPage,
@@ -28,8 +29,8 @@ function CartPage() {
   const data = Route.useLoaderData();
   const [optimisticCart, setOptimisticCart] = createSignal(data().cart);
 
-  createComputed(() => {
-    setOptimisticCart(data().cart);
+  createEffect(data, (d) => {
+    setOptimisticCart(d.cart);
   });
 
   const total = () => {
@@ -52,7 +53,7 @@ function CartPage() {
   return (
     <div class="w-full space-y-8">
       <h1 class="text-3xl font-bold text-[#FF6B00]">Shopping Cart</h1>
-      <Suspense fallback={<div class="p-4">Loading Cart...</div>}>
+      <Loading fallback={<div class="p-4">Loading Cart...</div>}>
         <Show
           when={optimisticCart() && optimisticCart().length > 0}
           fallback={
@@ -68,7 +69,7 @@ function CartPage() {
               <div class="space-y-4">
                 <For each={optimisticCart()}>
                   {(item) => (
-                    <Show when={item.product} fallback={null}>
+                    <Show when={item().product} fallback={null}>
                       {(product) => (
                         <div class="flex items-center justify-between border-b pb-4">
                           <div class="flex items-center space-x-4">
@@ -82,9 +83,8 @@ function CartPage() {
                                 width="64"
                                 height="64"
                                 class="h-16 w-16 border object-cover"
-                                src={`https://picsum.photos/id/${
-                                  product().id
-                                }/64`}
+                                src={`https://picsum.photos/id/${product().id
+                                  }/64`}
                               />
                             </Link>
                             <div>
@@ -103,18 +103,18 @@ function CartPage() {
                           <div class="flex items-center space-x-6">
                             <div class="flex items-center space-x-2">
                               <span class="text-gray-600">Qty:</span>
-                              <span class="font-medium">{item.quantity}</span>
+                              <span class="font-medium">{item().quantity}</span>
                             </div>
                             <div class="text-right">
                               <p class="text-lg font-medium text-[#FF6B00]">
                                 $
                                 {(
-                                  Number(product().price) * item.quantity
+                                  Number(product().price) * item().quantity
                                 ).toFixed(2)}
                               </p>
                             </div>
                             <button
-                              onClick={() => handleRemove(item.id)}
+                              onClick={() => handleRemove(item().id)}
                               class="text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
                               title="Remove item"
                             >
@@ -153,7 +153,7 @@ function CartPage() {
             </div>
           </div>
         </Show>
-      </Suspense>
+      </Loading>
     </div>
   );
 }

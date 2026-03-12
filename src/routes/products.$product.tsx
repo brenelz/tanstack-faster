@@ -1,9 +1,8 @@
 import { createFileRoute } from '@tanstack/solid-router'
 import { useNavigate, useRouter } from "@tanstack/solid-router";
-import { Show, createSignal } from "solid-js";
+import { Show, createSignal, createMemo } from "solid-js";
 import { addItemToCart, getProduct } from "@/lib/server";
 import { preloadImageIds } from "@/lib/imagePreloader";
-import { createAsync } from "@/lib/utils";
 
 export const Route = createFileRoute('/products/$product')({
   component: ProductPage,
@@ -21,7 +20,7 @@ export const Route = createFileRoute('/products/$product')({
 
 function ProductPage() {
   const data = Route.useLoaderData();
-  const product = createAsync(() => data().productPromise);
+  const product = createMemo(() => data()?.productPromise);
   const [isAdding, setIsAdding] = createSignal(false);
   const navigate = useNavigate();
   const router = useRouter();
@@ -35,7 +34,7 @@ function ProductPage() {
   };
 
   return (
-    <Show when={product.latest}>
+    <Show when={product()}>
       {(product) => (
         <div class="w-full space-y-8">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">

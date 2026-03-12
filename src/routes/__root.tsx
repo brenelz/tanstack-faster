@@ -4,9 +4,8 @@ import "@/styles/app.css";
 import Header from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { getCart, getCategories } from "@/lib/server";
-import { Show, Suspense } from "solid-js";
-import { createAsync } from "@/lib/utils";
-import { HydrationScript } from "solid-js/web";
+import { Show, Loading, createMemo } from "solid-js";
+import { HydrationScript } from "@solidjs/web";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -37,8 +36,8 @@ export const Route = createRootRoute({
 function RootComponent() {
   const data = Route.useLoaderData();
 
-  const cart = createAsync(() => data().cartPromise);
-  const categories = createAsync(() => data().categoriesPromise);
+  const cart = createMemo(() => data()?.cartPromise);
+  const categories = createMemo(() => data()?.categoriesPromise);
 
   return (
     <html>
@@ -47,15 +46,15 @@ function RootComponent() {
       </head>
       <body>
         <HeadContent />
-        <Suspense>
+        <Loading>
           <div>
-            <Header cart={cart.latest} />
+            <Header cart={cart()} />
             <div class="spt-[85px] sm:pt-[70px]">
               <div class="flex flex-grow font-mono">
                 <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
-                  <Suspense fallback={<div class="p-4">Loading Categories...</div>}>
-                    <Sidebar categories={categories.latest} />
-                  </Suspense>
+                  <Loading fallback={<div class="p-4">Loading Categories...</div>}>
+                    <Sidebar categories={categories()} />
+                  </Loading>
                 </aside>
                 <main class="min-h-[calc(100vh-113px)] flex-1 overflow-y-auto p-4 pt-0 md:pl-64">
                   <div class="w-full p-4">
@@ -65,7 +64,7 @@ function RootComponent() {
               </div>
             </div>
           </div >
-        </Suspense>
+        </Loading>
         <Scripts />
       </body>
     </html>

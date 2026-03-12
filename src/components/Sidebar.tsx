@@ -20,10 +20,10 @@ export function Sidebar(props: SidebarProps) {
                 class="block w-full py-1 text-xs text-gray-800 hover:bg-accent2 hover:underline"
                 to="/categories/$category"
                 params={{
-                  category: category.slug,
+                  category: category().slug,
                 }}
               >
-                {category.name}
+                {category().name}
               </Link>
             </li>
           )}
