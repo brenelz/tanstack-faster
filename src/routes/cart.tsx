@@ -3,7 +3,6 @@ import { getCart, removeFromCart } from "@/lib/server";
 import { useRouter, } from "@tanstack/solid-router";
 import { createEffect, createSignal, For, Loading, Show } from "solid-js";
 import { Link } from "@tanstack/solid-router";
-import { GelLocalDateStringBuilder } from 'drizzle-orm/gel-core';
 
 export const Route = createFileRoute('/cart')({
   component: CartPage,
@@ -27,15 +26,18 @@ function PendingCartPage() {
 function CartPage() {
   const router = useRouter();
   const data = Route.useLoaderData();
-  const [optimisticCart, setOptimisticCart] = createSignal(data().cart);
+  const [optimisticCart, setOptimisticCart] = createSignal(() => data().cart);
 
-  createEffect(data, (d) => {
-    setOptimisticCart(d.cart);
-  });
+  createEffect(
+    () => data().cart,
+    (cart) => {
+      setOptimisticCart(cart);
+    }
+  );
 
   const total = () => {
-    return data()
-      .cart.reduce((sum, item) => {
+    return optimisticCart()
+      .reduce((sum, item) => {
         if (!item.product) return sum;
         return sum + Number(item.product.price) * item.quantity;
       }, 0)
@@ -70,76 +72,74 @@ function CartPage() {
                 <For each={optimisticCart()}>
                   {(item) => (
                     <Show when={item().product} fallback={null}>
-                      {(product) => (
-                        <div class="flex items-center justify-between border-b pb-4">
-                          <div class="flex items-center space-x-4">
+                      <div class="flex items-center justify-between border-b pb-4">
+                        <div class="flex items-center space-x-4">
+                          <Link
+                            to="/products/$product"
+                            params={{ product: item().product!.slug }}
+                            class="hover:opacity-75"
+                          >
+                            <img
+                              alt={`A picture of ${item().product!.name}`}
+                              width="64"
+                              height="64"
+                              class="h-16 w-16 border object-cover"
+                              src={`https://picsum.photos/id/${item().product!.id
+                                }/64`}
+                            />
+                          </Link>
+                          <div>
                             <Link
                               to="/products/$product"
-                              params={{ product: product().slug }}
-                              class="hover:opacity-75"
+                              params={{ product: item().product!.slug }}
+                              class="text-lg font-medium text-[#FF6B00] hover:text-[#FFA366]"
                             >
-                              <img
-                                alt={`A picture of ${product().name}`}
-                                width="64"
-                                height="64"
-                                class="h-16 w-16 border object-cover"
-                                src={`https://picsum.photos/id/${product().id
-                                  }/64`}
-                              />
+                              {item().product!.name}
                             </Link>
-                            <div>
-                              <Link
-                                to="/products/$product"
-                                params={{ product: product().slug }}
-                                class="text-lg font-medium text-[#FF6B00] hover:text-[#FFA366]"
-                              >
-                                {product().name}
-                              </Link>
-                              <p class="text-sm text-gray-600">
-                                ${product().price}
-                              </p>
-                            </div>
-                          </div>
-                          <div class="flex items-center space-x-6">
-                            <div class="flex items-center space-x-2">
-                              <span class="text-gray-600">Qty:</span>
-                              <span class="font-medium">{item().quantity}</span>
-                            </div>
-                            <div class="text-right">
-                              <p class="text-lg font-medium text-[#FF6B00]">
-                                $
-                                {(
-                                  Number(product().price) * item().quantity
-                                ).toFixed(2)}
-                              </p>
-                            </div>
-                            <button
-                              onClick={() => handleRemove(item().id)}
-                              class="text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                              title="Remove item"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="h-5 w-5"
-                              >
-                                <path d="M3 6h18" />
-                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                                <line x1="10" y1="11" x2="10" y2="17" />
-                                <line x1="14" y1="11" x2="14" y2="17" />
-                              </svg>
-                            </button>
+                            <p class="text-sm text-gray-600">
+                              ${item().product!.price}
+                            </p>
                           </div>
                         </div>
-                      )}
+                        <div class="flex items-center space-x-6">
+                          <div class="flex items-center space-x-2">
+                            <span class="text-gray-600">Qty:</span>
+                            <span class="font-medium">{item().quantity}</span>
+                          </div>
+                          <div class="text-right">
+                            <p class="text-lg font-medium text-[#FF6B00]">
+                              $
+                              {(
+                                Number(item().product!.price) * item().quantity
+                              ).toFixed(2)}
+                            </p>
+                          </div>
+                          <button
+                            onClick={() => handleRemove(item().id)}
+                            class="text-gray-500 hover:text-red-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                            title="Remove item"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="20"
+                              height="20"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              class="h-5 w-5"
+                            >
+                              <path d="M3 6h18" />
+                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                              <line x1="10" y1="11" x2="10" y2="17" />
+                              <line x1="14" y1="11" x2="14" y2="17" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
                     </Show>
                   )}
                 </For>
