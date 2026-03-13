@@ -9,7 +9,11 @@ export const Route = createFileRoute('/products/$product')({
   loader: async ({ params }) => {
     const productPromise = getProduct({ data: { product: params.product } });
 
-    productPromise.then(product => preloadImageIds([product.id], 400));
+    productPromise.then(product => {
+      if (product) {
+        preloadImageIds([product.id], 400);
+      }
+    });
 
     return {
       productPromise,
@@ -26,10 +30,11 @@ function ProductPage() {
   const router = useRouter();
 
   const handleAddToCart = async () => {
-    console.log('product', product());
+    const currentProduct = product();
+    if (!currentProduct) return;
     setIsAdding(true);
-    await addItemToCart({ data: { product: product()! } });
-    router.invalidate();
+    await addItemToCart({ data: { product: currentProduct } });
+    await router.invalidate();
     await router.preloadRoute({ to: '/cart' })
     navigate({ to: '/cart' });
   };
