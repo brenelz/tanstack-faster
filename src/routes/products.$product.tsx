@@ -36,8 +36,8 @@ function ProductPage() {
 
     try {
       await addItemToCart({ data: { product: currentProduct } });
-      navigate({ to: '/cart' });
-      void router.invalidate();
+      await navigate({ to: '/cart' });
+      await router.invalidate();
     } finally {
       setIsAdding(false);
     }
